@@ -7,5 +7,12 @@
 <body>
 <h1>Pie Run Order</h1>
 <p>Client: {{ pie_run_order.client_name }}</p>
+<ul>
+    {% for pie_run_order_entry in pie_run_order_entries %}
+        <li>
+            {{ pie_run_order_entry }}
+        </li>
+    {% endfor %}
+</ul>
 </body>
 </html>

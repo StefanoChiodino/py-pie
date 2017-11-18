@@ -22,4 +22,9 @@ def add(request):
 
 def details(request, pie_run_order_id):
     pie_run_order = get_object_or_404(PieRunOrder, pie_run_order_id=pie_run_order_id)
-    return render(request, "pie_run_order/details.html", {"pie_run_order": pie_run_order})
+    pie_run_order_entries = PieRunOrderEntry.objects.filter(pie_run_order_id=pie_run_order_id)
+    context = {
+        "pie_run_order": pie_run_order,
+        "pie_run_order_entries": pie_run_order_entries,
+    }
+    return render(request, "pie_run_order/details.html", context)
