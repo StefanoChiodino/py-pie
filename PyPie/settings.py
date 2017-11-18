@@ -37,7 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'pies',
+    'pie',
+    'pie_run',
+    'pie_run_order',
 ]
 
 MIDDLEWARE = [

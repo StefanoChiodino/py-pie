@@ -18,5 +18,8 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^', include('pies.urls')),
+    # url(r'^pie/', include('pie.urls')),
+    # url(r'^pie_run_order/', include('pie_run_order.urls')),
+    url(r'', include('pie_run.urls')),
 ]
+

@@ -10,7 +10,7 @@ import uuid
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('pies', '0001_initial'),
+        ('pie', '0001_initial'),
     ]
 
     operations = [
@@ -26,15 +26,15 @@ class Migration(migrations.Migration):
             fields=[
                 ('pie_run_order_id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
                 ('client_name', models.CharField(max_length=100)),
-                ('pie_run', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='pies.PieRun')),
+                ('pie_run', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='pie.PieRun')),
             ],
         ),
         migrations.CreateModel(
             name='PieRunOrderEntries',
             fields=[
-                ('pie', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, primary_key=True, serialize=False, to='pies.Pie')),
+                ('pie', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, primary_key=True, serialize=False, to='pie.Pie')),
                 ('quantity', models.IntegerField()),
-                ('pie_run_order', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='pies.PieRunOrder')),
+                ('pie_run_order', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='pie.PieRunOrder')),
             ],
         ),
         migrations.RemoveField(
