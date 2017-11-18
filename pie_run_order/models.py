@@ -15,7 +15,7 @@ class PieRunOrder(models.Model):
         return str(f"{self.pie_run} - {self.client_name}")
 
 
-class PieRunOrderEntries(models.Model):
+class PieRunOrderEntry(models.Model):
     pie_run_order = models.ForeignKey(PieRunOrder)
     pie = models.OneToOneField(Pie, primary_key=True)
     quantity = models.IntegerField()

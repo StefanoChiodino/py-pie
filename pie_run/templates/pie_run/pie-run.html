@@ -7,6 +7,24 @@
 <body>
 <h1>{{ pie_run }}</h1>
 
+<h2>Add your order</h2>
+{% if error_message %}
+    <p><strong>{{ error_message }}</strong></p>
+{% endif %}
+<form action="{% url 'pie_run_order:add' %}" method="post">
+    {% csrf_token %}
+    <input type="hidden" name="pie_run_id" value="{{ pie_run.pie_run_id }}" />
+    <label for="client_name">Your name:</label>
+    <input type="text" name="client_name" required />
+    {% for pie in pies %}
+        <input type="hidden" name="pie-id[]" value="{{ pie.pie_id }}"/>
+        <label for="pie-count[]">{{ pie.name }}</label>
+        <input name="pie-count[]" type="number" />
+    {% endfor %}
+    <input type="submit" value="order" />
+</form>
+
+<h2>Orders</h2>
 <ul>
     {% for pie_run_order in pie_run_orders %}
         <li>
