@@ -1,4 +1,5 @@
 from django.shortcuts import redirect, render, get_object_or_404
+from django.views import generic
 
 from pie_run_order.models import PieRunOrder, PieRunOrderEntry
 
@@ -28,3 +29,9 @@ def details(request, pie_run_order_id):
         "pie_run_order_entries": pie_run_order_entries,
     }
     return render(request, "pie_run_order/details.html", context)
+
+
+class DetailView(generic.DetailView):
+    model = PieRunOrder
+    context_object_name = "pie_run_order"
+    template_name = "pie_run_order/details.html"

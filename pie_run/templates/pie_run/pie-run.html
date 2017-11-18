@@ -28,7 +28,9 @@
 <ul>
     {% for pie_run_order in pie_run_orders %}
         <li>
-            {{ pie_run_order }}
+            <a href="{% url 'pie_run_order:details' pie_run_order.pie_run_order_id %}">
+                {{ pie_run_order }}
+            </a>
         </li>
     {% endfor %}
 </ul>
