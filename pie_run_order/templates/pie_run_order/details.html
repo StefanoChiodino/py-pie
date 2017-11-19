@@ -7,13 +7,13 @@
 <body>
 <h1>Pie Run Order</h1>
 <p>Client: {{ pie_run_order.client_name }}</p>
-{% comment %}<h2>Items ordered:</h2>
+<h2>Items ordered:</h2>
 <ul>
-    {% for pie_run_order_entry in pie_run_order.pierunorderentry_set %}
+    {% for pie_run_order_entry in pie_run_order_entries %}
         <li>
             {{ pie_run_order_entry }}
         </li>
     {% endfor %}
-</ul>{% endcomment %}
+</ul>
 </body>
 </html>

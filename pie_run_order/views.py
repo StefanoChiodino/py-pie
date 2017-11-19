@@ -18,7 +18,7 @@ def add(request):
                                                quantity=pie_order[1])
         pie_run_order_entry.save()
 
-    return redirect("pie_run_order:details", pie_run_order_id=pie_run_order.pie_run_order_id)
+    return redirect("pie_run_order:details", pk=pie_run_order.pie_run_order_id)
 
 
 def details(request, pie_run_order_id):
@@ -35,3 +35,8 @@ class DetailView(generic.DetailView):
     model = PieRunOrder
     context_object_name = "pie_run_order"
     template_name = "pie_run_order/details.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(DetailView, self).get_context_data(**kwargs)
+        context["pie_run_order_entries"] = PieRunOrderEntry.objects.filter(pie_run_order=context["pie_run_order"])
+        return context
