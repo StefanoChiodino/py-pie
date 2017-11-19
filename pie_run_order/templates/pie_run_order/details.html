@@ -1,10 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block content %}
 <h1>Pie Run Order</h1>
 <p>Client: {{ pie_run_order.client_name }}</p>
 <h2>Items ordered:</h2>
@@ -15,5 +11,4 @@
         </li>
     {% endfor %}
 </ul>
-</body>
-</html>
+{% endblock %}

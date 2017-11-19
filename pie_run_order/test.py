@@ -1,3 +1,5 @@
+import uuid
+
 from django.urls import reverse
 from django.utils import timezone
 
@@ -83,3 +85,7 @@ class TestDetails(TestCase):
         pie_run_order_entry = add_test_pie_run_order()
         response = self.client.get(reverse("pie_run_order:details", args=(pie_run_order_entry.pie_run_order_id,)))
         self.assertContains(response, text=CLIENT_NAME, count=1)
+
+    def test_details_returns_404_if_not_found(self):
+        response = self.client.get(reverse("pie_run_order:details", args=(uuid.uuid4(),)))
+        self.assertEqual(response.status_code, 404)
