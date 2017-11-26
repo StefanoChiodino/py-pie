@@ -25,7 +25,7 @@ SECRET_KEY = '@k(ymbolct!8ih8(#k_5cefzs*dw6p1fq&d4h=fe%*djlig&t!'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["stefanochiodino.pythonanywhere.com"]
+ALLOWED_HOSTS = ["stefanochiodino.pythonanywhere.com", "127.0.0.1", "localhost"]
 
 
 # Application definition
@@ -77,10 +77,13 @@ WSGI_APPLICATION = 'PyPie.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+DATABASES = {"default": {
+    "ENGINE": "django.db.backends.postgresql_psycopg2",
+    "NAME": "py_pie",
+    "USER": "stefano",
+    "PASSWORD": "",
+    "HOST": "localhost",
+    "PORT": "",
     }
 }
 

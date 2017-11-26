@@ -17,7 +17,7 @@ class PieRunOrder(models.Model):
 
 class PieRunOrderEntry(models.Model):
     pie_run_order = models.ForeignKey(PieRunOrder)
-    pie = models.OneToOneField(Pie, primary_key=True)
+    pie = models.OneToOneField(Pie)
     quantity = models.IntegerField()
 
     def __str__(self):
