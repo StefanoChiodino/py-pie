@@ -8,7 +8,7 @@ from pie_run.models import PieRun
 
 class PieRunOrder(models.Model):
     pie_run_order_id = models.UUIDField(primary_key=True, editable=False, default=uuid.uuid4)
-    pie_run = models.ForeignKey(PieRun)
+    pie_run = models.ForeignKey(PieRun, on_delete=models.CASCADE)
     client_name = models.CharField(max_length=100)
 
     def __str__(self):
@@ -16,8 +16,8 @@ class PieRunOrder(models.Model):
 
 
 class PieRunOrderEntry(models.Model):
-    pie_run_order = models.ForeignKey(PieRunOrder)
-    pie = models.OneToOneField(Pie)
+    pie_run_order = models.ForeignKey(PieRunOrder, on_delete=models.CASCADE)
+    pie = models.OneToOneField(Pie, on_delete=models.CASCADE)
     quantity = models.IntegerField()
 
     def __str__(self):
