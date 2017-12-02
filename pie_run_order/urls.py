@@ -1,9 +1,9 @@
-from django.conf.urls import url
+from django.urls import path
 
 from . import views
 
 app_name = 'pie_run_order'
 urlpatterns = [
-    url('details/<uuid:pk>/', views.DetailView.as_view(), name='details'),
-    url('add/', views.add, name='add'),
+    path('details/<uuid:pk>/', views.DetailView.as_view(), name='details'),
+    path('add/', views.add, name='add'),
 ]
