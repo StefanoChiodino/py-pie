@@ -1,9 +1,8 @@
 import uuid
 
+from django.test import TestCase
 from django.urls import reverse
 from django.utils import timezone
-
-from django.test import TestCase, Client
 
 from pie.models import Pie
 from pie_run.models import PieRun
