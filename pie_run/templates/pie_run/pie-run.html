@@ -15,7 +15,7 @@
     {% for pie in pies %}
         <input type="hidden" name="pie-id[]" value="{{ pie.pie_id }}"/>
         <label for="pie-count[]">{{ pie.name }}</label>
-        <input name="pie-count[]" type="number" />
+        <input class="pie-input" name="pie-count[]" type="number"/>
     {% endfor %}
     <input type="submit" value="order" />
 </form>

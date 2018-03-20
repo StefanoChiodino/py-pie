@@ -16,8 +16,9 @@ class PieRunOrder(models.Model):
 
 
 class PieRunOrderEntry(models.Model):
+    pie_run_order_entry_id = models.UUIDField(primary_key=True, editable=False, default=uuid.uuid4)
     pie_run_order = models.ForeignKey(PieRunOrder, on_delete=models.CASCADE)
-    pie = models.OneToOneField(Pie, on_delete=models.CASCADE)
+    pie = models.ForeignKey(Pie, on_delete=models.CASCADE)
     quantity = models.IntegerField()
 
     def __str__(self):
