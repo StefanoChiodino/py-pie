@@ -1,8 +1,11 @@
 import pytest
 from django.contrib.auth.models import User
 from pytest_django.live_server_helper import LiveServer
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.remote.webdriver import WebDriver
+
+SAVE_LINK_NAME = '_save'
+
+ADD_LINK_CLASS = 'addlink'
 
 
 @pytest.mark.nondestructive
@@ -26,41 +29,45 @@ def test_submit_pie_order(selenium: WebDriver, live_server: LiveServer, admin_us
 
     # Admin login.
     selenium.get(live_server.url + '/admin/')
-    admin_username_input = selenium.find_element_by_css_selector('input[name=username]')
-    admin_username_input.send_keys(admin_user.username)
-    admin_password_input = selenium.find_element_by_css_selector('input[name=password]')
-    admin_password_input.send_keys('password')
-    admin_password_input.send_keys(Keys.RETURN)
+    fill(selenium, admin_user.username, 'username')
+    fill(selenium, 'password', 'password')
+    selenium.find_element_by_css_selector('input[type=submit]').click()
 
-    # Admin goes to the pie run section.
-    pie_run_link = selenium.find_element_by_link_text('Pie_Run')
-    pie_run_link.click()
+    # Admin goes to the pie run section
+    selenium.find_element_by_link_text('Pie_Run').click()
 
     # Admin clicks on the link to add a pie run.
-    add_link = selenium.find_element_by_class_name('addlink')
-    add_link.click()
+    selenium.find_element_by_class_name(ADD_LINK_CLASS).click()
 
     # Admin selects today as the date for the new pie run.
-    today_link = selenium.find_element_by_link_text('Today')
-    today_link.click()
+    selenium.find_element_by_link_text('Today').click()
 
     # Admin adds a pie run.
-    save_button = selenium.find_element_by_name('_save')
-    save_button.click()
+    selenium.find_element_by_name(SAVE_LINK_NAME).click()
 
-    # TODO: admin adds pies.
+    # Admin goes to the pie section.
+    selenium.find_element_by_link_text('Pie Runner Admin').click()
+    selenium.find_element_by_link_text('Pie').click()
+
+    # Admin clicks on the link to add a pie.
+    selenium.find_element_by_class_name(ADD_LINK_CLASS).click()
+
+    # Admin fills in Pie form.
+    pie_name = 'pie name'
+    fill(selenium, pie_name, 'name')
+    fill(selenium, '1', 'price')
+
+    # Admin saves the pie.
+    selenium.find_element_by_name(SAVE_LINK_NAME).click()
 
     # Admin logs out.
-    logout_link = selenium.find_element_by_link_text('Log out')
-    logout_link.click()
+    selenium.find_element_by_link_text('Log out').click()
 
     selenium.get(live_server.url)
-    pie_run_link = selenium.find_element_by_css_selector('li a')
-    pie_run_link.click()
+    selenium.find_element_by_css_selector('li a').click()
 
-    name_input = selenium.find_element_by_css_selector('input[name=client_name]')
     client_name = 'test name'
-    name_input.send_keys(client_name)
+    fill(selenium, client_name, 'client_name')
 
     pie_inputs = selenium.find_elements_by_class_name('pie-input')
     for pie_input in pie_inputs:
@@ -74,3 +81,9 @@ def test_submit_pie_order(selenium: WebDriver, live_server: LiveServer, admin_us
 
     body = selenium.find_element_by_css_selector('body')
     assert client_name in body.text
+    assert pie_name in body.text
+
+
+def fill(selenium: WebDriver, text: str, input_name: str):
+    input_element = selenium.find_element_by_name(input_name)
+    input_element.send_keys(text)
