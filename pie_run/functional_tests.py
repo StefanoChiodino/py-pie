@@ -19,6 +19,7 @@ def test_homepage_has_h1_pie_runs(selenium: WebDriver, live_server: LiveServer):
     assert heading.text == 'Pie Runs'
 
 
+# TODO: This tests too many functionalities, move to the more generic pypie app.
 @pytest.mark.django_db
 def test_submit_pie_order(selenium: WebDriver, live_server: LiveServer, admin_user: User):
     selenium.implicitly_wait(1)
