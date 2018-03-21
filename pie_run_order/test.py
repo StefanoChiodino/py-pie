@@ -1,6 +1,7 @@
 import uuid
 
 import pytest
+from django.test import Client
 from django.urls import reverse
 from django.utils import timezone
 
@@ -39,7 +40,7 @@ def add_pie(pie_name=TEST_PIE_NAME):
 
 
 @pytest.mark.django_db
-def test_add(client):
+def test_add(client: Client):
     pie = add_pie()
     pie_run = add_pie_run()
     data = {
@@ -54,7 +55,7 @@ def test_add(client):
 
 
 @pytest.mark.django_db
-def test_add_multiple_pies(client):
+def test_add_multiple_pies(client: Client):
     pie = add_pie(TEST_PIE_NAME)
     pie2 = add_pie(TEST_PIE_NAME2)
     pie_run = add_pie_run()
@@ -72,27 +73,27 @@ def test_add_multiple_pies(client):
 
 
 @pytest.mark.django_db
-def test_details(client):
+def test_details(client: Client):
     pie_run_order_entry = add_test_pie_run_order()
     response = client.get(reverse("pie_run_order:details", args=(pie_run_order_entry.pie_run_order_id,)))
     assert response.status_code == 200
 
 
 @pytest.mark.django_db
-def test_details_contains_client_name(client):
+def test_details_contains_client_name(client: Client):
     pie_run_order_entry = add_test_pie_run_order()
     response = client.get(reverse("pie_run_order:details", args=(pie_run_order_entry.pie_run_order_id,)))
     assert TEST_PIE_NAME in response.rendered_content
 
 
 @pytest.mark.django_db
-def test_details_contains_entries(client):
+def test_details_contains_entries(client: Client):
     pie_run_order_entry = add_test_pie_run_order()
     response = client.get(reverse("pie_run_order:details", args=(pie_run_order_entry.pie_run_order_id,)))
     assert CLIENT_NAME in response.rendered_content
 
 
 @pytest.mark.django_db
-def test_details_returns_404_if_not_found(client):
+def test_details_returns_404_if_not_found(client: Client):
     response = client.get(reverse("pie_run_order:details", args=(uuid.uuid4(),)))
     assert response.status_code == 404

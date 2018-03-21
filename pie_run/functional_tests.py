@@ -1,30 +1,26 @@
 import pytest
-
-
-# def setup_module(module):
-#     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "PyPie.settings")
-#     execute_from_command_line(['/Users/stefano/dev/PyPie/manage.py', 'runserver', '8000'])
-from selenium.webdriver.firefox.webdriver import WebDriver
+from pytest_django.live_server_helper import LiveServer
+from selenium.webdriver.remote.webdriver import WebDriver
 
 
 @pytest.mark.nondestructive
-def test_can_load_page(selenium, url: str):
-    selenium.get(url)
+def test_can_load_page(selenium: WebDriver, live_server: LiveServer):
+    selenium.get(live_server.url)
     body = selenium.find_element_by_css_selector('body')
     assert body is not None
 
 
 @pytest.mark.nondestructive
-def test_homepage_has_h1_pie_runs(selenium, url: str):
-    selenium.get(url)
+def test_homepage_has_h1_pie_runs(selenium: WebDriver, live_server: LiveServer):
+    selenium.get(live_server.url)
     heading = selenium.find_element_by_css_selector('h1')
     assert heading.text == 'Pie Runs'
 
 
-@pytest.mark.nondestructive
-def test_submit_pie_order(selenium: WebDriver, url: str):
+@pytest.mark.django_db
+def test_submit_pie_order(selenium: WebDriver, live_server: LiveServer):
     selenium.implicitly_wait(1)
-    selenium.get(url)
+    selenium.get(live_server.url)
     pie_run_link = selenium.find_element_by_css_selector('li a')
     pie_run_link.click()
 
